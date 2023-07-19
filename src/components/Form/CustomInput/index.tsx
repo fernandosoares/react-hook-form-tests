@@ -11,7 +11,7 @@ export const CustonInput = (props: ICustonInput) => {
     getFieldState,
   } = useFormContext();
 
-  const fieldState = getFieldState(id);
+  const errorMessage = getFieldState(id).error?.message || errors[id]?.message;
 
   return (
     <FormControl>
@@ -23,8 +23,8 @@ export const CustonInput = (props: ICustonInput) => {
         {...register(id, {
           required: `Field ${label.toUpperCase()} is required`,
         })}
-        error={!!fieldState.error?.message || !!errors[id]?.message}
-        helperText={fieldState.error?.message || errors[id]?.message}
+        error={!!errorMessage}
+        helperText={errorMessage}
       />
     </FormControl>
   );
